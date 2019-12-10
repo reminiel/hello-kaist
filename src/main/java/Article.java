@@ -34,7 +34,7 @@ public class Article{
         this.date = date;
         return this;
     }
-    public Article addContents(String content, Image image){
+    public Article addContents(String content, File image){
         Datum datum = new Datum(content, image);
         contents.add(datum);
         return this;

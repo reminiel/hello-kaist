@@ -252,7 +252,7 @@ public class UIView
 	    break;
 	case 2:
 	    // select article
-	    JButton returnbutton = new JButton("¡ç");
+	    JButton returnbutton = new JButton("ï¿½ï¿½");
 	    returnbutton.setSize(50, 50);
 	    returnbutton.setLocation(5, 5);
 	    returnbutton.addActionListener(new ActionListener()
@@ -309,7 +309,7 @@ public class UIView
 	    spanel.setLocation(100, panelheight / 2 - 150);
 	    spanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK));
 	    spanel.setBackground(new Color(0x1D4E89));
-	    JTextField sfield = new JTextField(40);
+	    final JTextField sfield = new JTextField(40);
 	    sfield.setSize(panelwidth - 280, 60);
 	    sfield.setLocation(5, 5);
 	    sfield.setFont(new Font("Arial", 0, 45));
@@ -338,7 +338,7 @@ public class UIView
 	    spanel2.setLocation(100, 20);
 	    spanel2.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK));
 	    spanel2.setBackground(new Color(0x1D4E89));
-	    JTextField sfield2 = new JTextField(40);
+	    final JTextField sfield2 = new JTextField(40);
 	    sfield2.setText(search);
 	    sfield2.setSize(panelwidth - 280, 60);
 	    sfield2.setLocation(5, 5);
@@ -369,10 +369,10 @@ public class UIView
 		titlelabel.setFont(basicfont);
 		titlelabel.setLocation(20, 0);
 		article.add(titlelabel);
-		JLabel authorlabel = new JLabel("°í±âÇü");
+		JLabel authorlabel = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½");
 		authorlabel.setSize(articlewidth / 8, articleheight / 5);
 		authorlabel.setLocation(articlewidth * 3 / 4, 0);
-		authorlabel.setFont(new Font("±¼¸²", 0, 25));
+		authorlabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", 0, 25));
 		article.add(authorlabel);
 		JLabel datelabel = new JLabel("2019 Spring");
 		datelabel.setSize(articlewidth / 8, articleheight / 5);
@@ -417,7 +417,7 @@ public class UIView
 	    addpagebuttons(1);
 	    break;
 	case 2:
-	    JButton returnbutton = new JButton("¡ç");
+	    JButton returnbutton = new JButton("ï¿½ï¿½");
 	    returnbutton.setSize(50, 50);
 	    returnbutton.setLocation(5, 5);
 	    returnbutton.addActionListener(new ActionListener()
@@ -436,10 +436,10 @@ public class UIView
 	    titlelabel.setFont(basicfont);
 	    titlelabel.setLocation(20, 0);
 	    detailarticle.add(titlelabel);
-	    JLabel authorlabel = new JLabel("°í±âÇü");
+	    JLabel authorlabel = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½");
 	    authorlabel.setSize(detailwidth / 8, 50);
 	    authorlabel.setLocation(detailwidth * 3 / 4, 0);
-	    authorlabel.setFont(new Font("±¼¸²", 0, 25));
+	    authorlabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", 0, 25));
 	    detailarticle.add(authorlabel);
 	    JLabel datelabel = new JLabel("2019 Spring");
 	    datelabel.setSize(detailwidth / 8, 50);
@@ -535,7 +535,7 @@ public class UIView
 	    addpagebuttons(2);
 	    break;
 	case 1:
-	    JButton returnbutton = new JButton("¡ç");
+	    JButton returnbutton = new JButton("ï¿½ï¿½");
 	    returnbutton.setSize(50, 50);
 	    returnbutton.setLocation(5, 5);
 	    returnbutton.addActionListener(new ActionListener()
