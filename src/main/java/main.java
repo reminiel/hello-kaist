@@ -1,7 +1,7 @@
 public class main {
     public static void main(String[] args){
 //        araLoader a = new araLoader();
-//        if(a.login("reminiel", "gjrjs_0806") == true) {
+//        if(a.login("id", "pw") == true) {
 //            Container c1 = a.fetchPage(1), c2;
 //            int ano = c1.getArticles().get(0).getId();
 //            System.out.println(ano);
