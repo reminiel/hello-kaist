@@ -718,45 +718,125 @@ public class UIView
 		clear();
 		// articles
 		int articlewidth = panelwidth - 100;
-		int articleheight = panelheight / 4 - 20;
-		for (int i = 0; i < 3; i++)
+		int articleheight = panelheight / 4;
+
+		for(int i=0;i<3;i++)
 		{
-			JPanel article = articlebox(articlewidth, articleheight, 50, 50 + panelheight / 4 * i );
-			Image img = null;
-			int imgsize = articleheight - 30;
-			try
-			{
-				img = ImageIO.read(new File("src/images/sample.png"));
+			if (i==0){
+				JPanel article = articlebox(articlewidth, articleheight, 50, 50 + panelheight / 4 * i + 40 * i);
+				Image img=null;
+				int imgsize = articleheight - 30;
+				try
+				{
+					img = ImageIO.read(new File("images/library.png"));
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+				img = img.getScaledInstance(imgsize, imgsize, Image.SCALE_SMOOTH);
+				JLabel imagelabel = new JLabel(new ImageIcon(img));
+				imagelabel.setSize(imgsize, imgsize);
+				imagelabel.setLocation(15, 15);
+				article.add(imagelabel);
+
+				JLabel namelabel = new JLabel("Application name:KAIST LIBRARY");
+				namelabel.setFont(basicfont);
+				namelabel.setSize(articlewidth - imgsize - 30, 50);
+				namelabel.setLocation(imgsize + 30, 15);
+				article.add(namelabel);
+
+				JTextArea textlabel = new JTextArea(
+						"INTRODUCTION:Inquiries, reservations for library seats, and how to borrow books   https://play.google.com/store/apps/details?id=kr.ac.libit.kaist&hl=en ");
+				textlabel.setLineWrap(true);
+				textlabel.setFont(basicfont);
+				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 90);
+				textlabel.setLocation(imgsize + 30, 80);
+				textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
+				textlabel.setEnabled(false);
+				textlabel.setDisabledTextColor(Color.BLACK);
+				article.add(textlabel);
+
+				window.add(article);
 			}
-			catch (IOException e1)
-			{
-				e1.printStackTrace();
+			if (i==1){
+				JPanel article = articlebox(articlewidth, articleheight, 50, 50 + panelheight / 4 * i + 40 * i);
+				Image img=null;
+				int imgsize = articleheight - 30;
+				try
+				{
+					img = ImageIO.read(new File("images/portal.png"));
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+				img = img.getScaledInstance(imgsize, imgsize, Image.SCALE_SMOOTH);
+				JLabel imagelabel = new JLabel(new ImageIcon(img));
+				imagelabel.setSize(imgsize, imgsize);
+				imagelabel.setLocation(15, 15);
+				article.add(imagelabel);
+
+				JLabel namelabel = new JLabel("Application name：KAIST PORTAL");
+				namelabel.setFont(basicfont);
+				namelabel.setSize(articlewidth - imgsize - 30, 50);
+				namelabel.setLocation(imgsize + 30, 15);
+				article.add(namelabel);
+
+				JTextArea textlabel = new JTextArea(
+						"INTRODUCTION：Integrated application receive notifications select courses also access to mail and KLMS   LINK：https://play.google.com/store/apps/details?id=kr.ac.kaist.portal&hl=en");
+				textlabel.setLineWrap(true);
+				textlabel.setFont(basicfont);
+				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 90);
+				textlabel.setLocation(imgsize + 30, 80);
+				textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
+				textlabel.setEnabled(false);
+				textlabel.setDisabledTextColor(Color.BLACK);
+				article.add(textlabel);
+
+				window.add(article);
 			}
-			img = img.getScaledInstance(imgsize, imgsize, Image.SCALE_SMOOTH);
-			JLabel imagelabel = new JLabel(new ImageIcon(img));
-			imagelabel.setSize(imgsize, imgsize);
-			imagelabel.setLocation(15, 15);
-			article.add(imagelabel);
+			if (i==2){
+				JPanel article = articlebox(articlewidth, articleheight, 50, 50 + panelheight / 4 * i + 40 * i);
+				Image img=null;
+				int imgsize = articleheight - 30;
+				try
+				{
+					img = ImageIO.read(new File("images/kairen.png"));
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+				img = img.getScaledInstance(imgsize, imgsize, Image.SCALE_SMOOTH);
+				JLabel imagelabel = new JLabel(new ImageIcon(img));
+				imagelabel.setSize(imgsize, imgsize);
+				imagelabel.setLocation(15, 15);
+				article.add(imagelabel);
 
-			JLabel namelabel = new JLabel("Application name");
-			namelabel.setFont(basicfont);
-			namelabel.setSize(articlewidth - imgsize - 30, 40);
-			namelabel.setLocation(imgsize + 30, 0);
-			article.add(namelabel);
+				JLabel namelabel = new JLabel("Application name：KAIREN");
+				namelabel.setFont(basicfont);
+				namelabel.setSize(articlewidth - imgsize - 30, 50);
+				namelabel.setLocation(imgsize + 30, 15);
+				article.add(namelabel);
 
-			JTextArea textlabel = new JTextArea(
-					"JTJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextArea");
-			textlabel.setLineWrap(true);
-			textlabel.setFont(basicfont);
-			textlabel.setSize(articlewidth - imgsize - 40, articleheight - 48);
-			textlabel.setLocation(imgsize + 30, 45);
-			textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
-			textlabel.setEnabled(false);
-			textlabel.setDisabledTextColor(Color.BLACK);
-			article.add(textlabel);
+				JTextArea textlabel = new JTextArea(
+						"INTRODUCTION：This app works for the communication and safety of KAIST people and KAIST security team by reporting security issue. LINK：https://play.google.com/store/apps/details?id=kr.ac.kaist.kairen.kairen&hl=en");
+				textlabel.setLineWrap(true);
+				textlabel.setFont(basicfont);
+				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 90);
+				textlabel.setLocation(imgsize + 30, 80);
+				textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
+				textlabel.setEnabled(false);
+				textlabel.setDisabledTextColor(Color.BLACK);
+				article.add(textlabel);
 
-			window.add(article);
+				window.add(article);
+			}
+
+
 		}
+
 		// page buttons
 		addpagebuttons(3);
 	}
