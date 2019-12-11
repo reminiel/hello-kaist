@@ -13,14 +13,8 @@ public class otlLoader {
     private final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36";
 
     public otlLoader(){
-        fetch(search("CS350"));
-        return;
-    }
 
-    private String Translate(String code){
-        return code;
     }
-
     private String search(String code){
         String url, value;
         Connection connection;
@@ -39,7 +33,9 @@ public class otlLoader {
         }
     }
 
-    private Container fetch(String code){
+    public Container fetch(String code){
+        code = search(code);
+        if(code == null) return null;
         Container container = new Container(1);
         String url, target;
         int flag=0;
@@ -66,8 +62,11 @@ public class otlLoader {
                     Article article = new Article(null);
                     article.setAuthor(n.get("writer").asText());
                     for(String s:n.get("comment").asText().split("\\\\r\\\\n")){
-                        article.addContents(Translate("s"),null);
+                        for(String ss:s.split("\n")){
+                            article.addContents(Translator.googleTranslate(ss), null);
+                        }
                     }
+                    container.addArticle(article);
                 }
                 return container;
             }

@@ -66,7 +66,9 @@ public class araLoader {
             System.out.println(e + "Date Parse failed");
         }
         article.setAuthor(element.select("p.author").select("span.eng").text());
-        article.addContents(element.select("div.replyArticle").first().html().replaceAll("<br>", ""),null);
+        for(String s:element.select("div.replyArticle").first().html().replaceAll("<br>", "").split("\n")){
+            article.addContents(Translator.googleTranslate(s), null);
+        }
         for(Element e:element.select("div.replyArticle").select("ul.replyBox")){
             article.addComments(commentSetter(e));
         }
@@ -89,7 +91,7 @@ public class araLoader {
                 response = connection.execute();
                 doc = response.parse();
                 Container container = new Container(3);
-                Article article = new Article(doc.select("div.articleTitle").select("h3").text());
+                Article article = new Article(Translator.googleTranslate(doc.select("div.articleTitle").select("h3").text()));
                 article.setId(articleno);
                 article.setAuthor(doc.select("p.author").select("span.eng").text());
                 for(Element element:doc.select("table.attached").select("td").select("a:not(.lightbox)")){
@@ -120,11 +122,15 @@ public class araLoader {
                 }
                 try {
                     article.setDate(new SimpleDateFormat("yyyy/MM/dd KK:mm a").parse(doc.select("p.date").text()));
-                    article.addContents(doc.select("div.article").html().replaceAll("<br>", ""), null);
+                    for(String s:doc.select("div.article").html().replaceAll("<br>", "").split("\n")){
+                        article.addContents(Translator.googleTranslate(s), null);
+                    }
                 }
                 catch(ParseException e){
                     System.out.println(e + "\nParse failed");
                 }
+                article.addContents("Link : " + url, null);
+                container.addArticle(article);
                 return container;
             } catch (IOException e) {
                 System.out.println(e + "\nFetch failed");
@@ -149,7 +155,7 @@ public class araLoader {
                 Container container = new Container(2);
                 for (Element element : doc.select("table.articleList").select("tr")) {
                     if (element.hasAttr("rel")) {
-                        Article article = new Article(element.select("td.title").text());
+                        Article article = new Article(Translator.googleTranslate(element.select("td.title").text()));
                         article.setAuthor(element.select("a.nickname").text());
                         try {
                             article.setDate(new SimpleDateFormat("yyyy/MM/dd").parse(element.select("td.date").text()));
