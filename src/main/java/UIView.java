@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,7 +31,10 @@ public class UIView
 	araLoader ara_load = null;
 	int article_number;
 	// OTL
+	otlLoader otl_load = null;
 	String search;
+	Container otl_c = null;
+	String targettext;
 	// etc
 	int panelwidth, panelheight;
 	Font basicfont = new Font("Arial", 0, 20);
@@ -339,6 +343,7 @@ public class UIView
 	void draw_OTL(int scr_number)
 	{
 		clear();
+		if(otl_load == null) otl_load = new otlLoader();
 		switch (scr_number)
 		{
 			case 0:
@@ -401,55 +406,59 @@ public class UIView
 	    spanel2.add(search_btn2);
 	    window.add(spanel2);
 	    */
+				System.out.println("OTL screen 1 drawing..");
+				if(otl_c == null)
+				{
+					otl_c = otl_load.fetch(search);
+					if(otl_c == null)
+					{
+						draw_OTL(0);
+						System.out.println("no result. return");
+						return;
+					}
+				}
+				ArrayList<Article> articles = otl_c.getArticles();
 				int articlewidth = panelwidth - 100;
 				int articleheight = panelheight / 4 - 20;
 				for (int i = 0; i < 3; i++)
 				{
+					System.out.println(i + "th article loading..");
+					if((selected_page-1)*3+1+i > articles.size()) continue;
+					Article tmp = articles.get((selected_page-1)*3+1+i);
 					JPanel article = articlebox(panelwidth - 100, articleheight, 50, 20 + panelheight / 4 * i );
-					JLabel titlelabel = new JLabel("MAS101 : Calculus");
-					titlelabel.setSize(articlewidth / 2 - 20, articleheight / 5);
-					titlelabel.setFont(basicfont);
-					titlelabel.setLocation(20, 0);
-					article.add(titlelabel);
-					JLabel authorlabel = new JLabel("�����");
-					authorlabel.setSize(articlewidth / 8, articleheight / 5);
-					authorlabel.setLocation(articlewidth * 3 / 4, 0);
-					authorlabel.setFont(new Font("����", 0, 25));
-					article.add(authorlabel);
-					JLabel datelabel = new JLabel("2019 Spring");
-					datelabel.setSize(articlewidth / 8, articleheight / 5);
-					datelabel.setLocation(articlewidth * 7 / 8, 0);
-					datelabel.setFont(basicfont);
-					article.add(datelabel);
-					JTextArea textlabel = new JTextArea(
-							"JTJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextArea");
+					//"<html>Delivery<br />Assistant</html>"
+					String tmp_str = "";
+					for(int j = 0;j < tmp.contentsSize();j++)
+					{
+						tmp_str += tmp.getContents(j).content;
+						if(j < tmp.contentsSize()-1) tmp_str+= "\n";
+					}
+					final String articletext = tmp_str;
+					JTextArea textlabel = new JTextArea(articletext);
 					textlabel.setLineWrap(true);
 					textlabel.setFont(basicfont);
-					textlabel.setSize(articlewidth - 40, articleheight * 4 / 5 - 20);
-					textlabel.setLocation(20, articleheight / 5 + 10);
+					textlabel.setSize(articlewidth - 40, articleheight-10);
+					textlabel.setLocation(20, 3);
 					textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
 					textlabel.setEnabled(false);
 					textlabel.setDisabledTextColor(Color.BLACK);
 					article.add(textlabel);
-					article.addMouseListener(new MouseListener()
+					textlabel.addMouseListener(new MouseListener()
 					{
 						public void mouseReleased(MouseEvent e)
 						{
 						}
-
 						public void mousePressed(MouseEvent e)
 						{
+							targettext = articletext;
 							draw_OTL(2);
 						}
-
 						public void mouseExited(MouseEvent e)
 						{
 						}
-
 						public void mouseEntered(MouseEvent e)
 						{
 						}
-
 						public void mouseClicked(MouseEvent e)
 						{
 						}
@@ -472,35 +481,15 @@ public class UIView
 				window.add(returnbutton);
 				int detailwidth = panelwidth - 20;
 				int detailheight = panelheight - 120;
-				JPanel detailarticle = articlebox(panelwidth - 20, panelheight - 120, 10, 60);
-				JLabel titlelabel = new JLabel("MAS101 : Calculus");
-				titlelabel.setSize(detailwidth / 2 - 20, 50);
-				titlelabel.setFont(basicfont);
-				titlelabel.setLocation(20, 0);
-				detailarticle.add(titlelabel);
-				JLabel authorlabel = new JLabel("�����");
-				authorlabel.setSize(detailwidth / 8, 50);
-				authorlabel.setLocation(detailwidth * 3 / 4, 0);
-				authorlabel.setFont(new Font("����", 0, 25));
-				detailarticle.add(authorlabel);
-				JLabel datelabel = new JLabel("2019 Spring");
-				datelabel.setSize(detailwidth / 8, 50);
-				datelabel.setLocation(detailwidth * 7 / 8, 0);
-				datelabel.setFont(basicfont);
-				detailarticle.add(datelabel);
-				JTextArea textlabel = new JTextArea(
-						"JTJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextAreaJTextArea");
+				JTextArea textlabel = new JTextArea(targettext);
 				textlabel.setLineWrap(true);
 				textlabel.setFont(basicfont);
-				textlabel.setSize(detailwidth - 40, detailheight - 60);
-				textlabel.setLocation(20, 60);
-				textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
-				textlabel.setEnabled(false);
 				textlabel.setDisabledTextColor(Color.BLACK);
-				textlabel.setAutoscrolls(true);
-				detailarticle.add(textlabel);
-
-				window.add(detailarticle);
+				JScrollPane sp = new JScrollPane(textlabel);
+				sp.setBounds(20,60,detailwidth-10,detailheight-20);
+				sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+				window.add(sp);
 				break;
 		}
 		window.updateUI();
