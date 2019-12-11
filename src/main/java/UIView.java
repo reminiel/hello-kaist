@@ -28,6 +28,7 @@ public class UIView
 	JButton pages[];
 	// ARA
 	araLoader ara_load = null;
+	int article_number;
 	// OTL
 	String search;
 	// etc
@@ -181,8 +182,8 @@ public class UIView
 					int targetpage = ((selected_page-1)*3+1+i)/20;
 					int targetarticle = ((selected_page-1)*3+1+i)%20;
 					Container c = ara_load.fetchPage(targetpage);
-					Article data = c.getArticles().get(targetarticle);
-					Container datumc = ara_load.fetchArticle(data.getId());
+					final Article data = c.getArticles().get(targetarticle);
+					final Container datumc = ara_load.fetchArticle(data.getId());
 					JPanel article = articlebox(articlewidth, articleheight, 25, 10 + panelheight / 4 * i + 10 * i);
 					// title, author and date
 					JLabel titlelabel = new JLabel(data.getTitle());
@@ -239,6 +240,7 @@ public class UIView
 
 						public void mousePressed(MouseEvent e)
 						{
+							article_number = data.getId();
 							draw_ARA(2);
 						}
 
@@ -261,6 +263,8 @@ public class UIView
 				break;
 			case 2:
 				// select article
+				Article selected_article = ara_load.fetchArticle(article_number).getArticles().get(0);
+
 				JButton returnbutton = new JButton("<");
 				returnbutton.setSize(50, 50);
 				returnbutton.setLocation(5, 5);
@@ -275,29 +279,56 @@ public class UIView
 				int detailwidth = panelwidth - 20;
 				int detailheight = panelheight - 120;
 				JPanel detailarticle = articlebox(panelwidth - 20, panelheight - 120, 10, 60);
-				JLabel titlelabel = new JLabel("Title");
+				JLabel titlelabel = new JLabel(selected_article.getTitle());
 				titlelabel.setSize(detailwidth / 2 - 20, 50);
 				titlelabel.setFont(basicfont);
 				titlelabel.setLocation(20, 0);
 				detailarticle.add(titlelabel);
-				JLabel authorlabel = new JLabel("Author");
+				JLabel authorlabel = new JLabel(selected_article.getAuthor());
 				authorlabel.setSize(detailwidth / 4, 50);
 				authorlabel.setLocation(detailwidth * 2 / 4, 0);
 				authorlabel.setFont(new Font("Arial", 0, 25));
 				detailarticle.add(authorlabel);
-				JLabel datelabel = new JLabel("2019.12.10");
+				JLabel datelabel = new JLabel(new SimpleDateFormat( "MM.dd HH:mm").format(selected_article.getDate()));
 				datelabel.setSize(detailwidth / 4, 50);
 				datelabel.setLocation(detailwidth * 3 / 4, 0);
 				datelabel.setFont(basicfont);
 				detailarticle.add(datelabel);
 				JPanel textnimg = new JPanel();
-				textnimg.setBackground(Color.GREEN);
-				// TODO fell the panel with data
+				int current_height = 0;
+				for(int i = 0;i < selected_article.contentsSize();i++)
+				{
+					if(selected_article.getContents(i).content != null)
+					{
+						JTextArea tmp = new JTextArea(selected_article.getContents(i).content);
+						tmp.setLocation(0,current_height);
+						tmp.setSize(detailwidth-100,200);
+						tmp.setLineWrap(true);
+						tmp.setSize(detailwidth-100,tmp.getLineCount()*20);
+						textnimg.add(tmp);
+						current_height += 200;
+					}
+					if(selected_article.getContents(i).image != null)
+					{
+						Image img = null;
+						try {
+							img = ImageIO.read(selected_article.getContents(i).image);
+							img = img.getScaledInstance(64,64,Image.SCALE_SMOOTH);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						JLabel imgtmp = new JLabel(new ImageIcon(img));
+						imgtmp.setSize(64,64);
+						imgtmp.setLocation(0,current_height);
+						textnimg.add(imgtmp);
+						current_height += 64;
+					}
+				}
+				textnimg.setPreferredSize(new Dimension(detailwidth-100,current_height));
 				JScrollPane sp = new JScrollPane(textnimg);
 				sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 				sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-				sp.setSize(detailwidth - 100, detailheight - 100);
-				sp.setLocation(50, 70);
+				sp.setBounds(50,70,detailwidth-100,detailheight-100);
 				detailarticle.add(sp);
 				window.add(detailarticle);
 				break;
