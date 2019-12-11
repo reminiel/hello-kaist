@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 
 public class araLoader {
@@ -60,7 +61,7 @@ public class araLoader {
     private Article commentSetter(Element element){
         Article article = new Article(null);
         try{
-        article.setDate(new SimpleDateFormat("yyyy/MM/dd KK:mm a").parse(element.select("p.date").text()));
+        article.setDate(new SimpleDateFormat("yyyy/MM/dd h:mm aa", Locale.US).parse(element.select("p.date").text().replaceAll("오전", "AM").replaceAll("오후", "PM")));
         }
         catch (ParseException e){
             System.out.println(e + "Date Parse failed");
@@ -87,7 +88,7 @@ public class araLoader {
         for(int i=0;i<trial;i++) {
             try {
                 connection = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
-                        .method(Connection.Method.GET).cookie("sessionid", cookie1).cookie("arara_checksum", cookie2);
+                        .method(Connection.Method.GET).cookie("sessionid", cookie1).cookie("arara_checksum", cookie2).timeout(10000);
                 response = connection.execute();
                 doc = response.parse();
                 Container container = new Container(3);
@@ -121,7 +122,7 @@ public class araLoader {
                     article.addComments(commentSetter(element));
                 }
                 try {
-                    article.setDate(new SimpleDateFormat("yyyy/MM/dd KK:mm a").parse(doc.select("p.date").text()));
+                    article.setDate(new SimpleDateFormat("yyyy/MM/dd h:m a", Locale.US).parse(doc.select("p.date").text().replaceAll("오전", "AM").replaceAll("오후", "PM")));
                     for(String s:doc.select("div.article").html().replaceAll("<br>", "").split("\n")){
                         article.addContents(Translator.googleTranslate(s), null);
                     }
@@ -149,14 +150,14 @@ public class araLoader {
         for(int i=0;i<trial;i++) {
             try {
                 connection = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
-                        .method(Connection.Method.GET).cookie("sessionid", cookie1).cookie("arara_checksum", cookie2);
+                        .method(Connection.Method.GET).cookie("sessionid", cookie1).cookie("arara_checksum", cookie2).timeout(10000);
                 response = connection.execute();
                 doc = response.parse();
                 Container container = new Container(2);
                 for (Element element : doc.select("table.articleList").select("tr")) {
                     if (element.hasAttr("rel")) {
                         Article article = new Article(Translator.googleTranslate(element.select("td.title").text()));
-                        article.setAuthor(element.select("a.nickname").text());
+                        article.setAuthor(element.select("span.username").text());
                         try {
                             article.setDate(new SimpleDateFormat("yyyy/MM/dd").parse(element.select("td.date").text()));
                         } catch (ParseException e) {
