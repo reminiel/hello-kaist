@@ -4,22 +4,18 @@
 package deliveryAssistantService;
 
 import java.io.*;
-import java.sql.*;
 import java.util.*;
 /*import google cloud client library*/
 import com.google.cloud.texttospeech.v1.*;
 import com.google.protobuf.ByteString;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
-import javax.sound.sampled.*;
 
 public class Menu {
 
     //private ArrayList<Restaurant> resList = new ArrayList<Restaurant>();
     private int menuID;
+    private int resID;
     private int menuPrice;
     private String menuName;
     private int qty;
@@ -27,25 +23,20 @@ public class Menu {
     private String orderMsg;
     private byte menuImg;
     private int selectedResID;
-    private static Statement stmt;
-    /*BELOW IS TO PLAY THE MP3 FILE*/
-    Long currentFrame; //store current position
-    Clip clip;
-    String status; //current status of the clip
-    AudioInputStream audioInputStream;
-    String filepath = "C:\\Users\\User\\IdeaProjects\\hello-kaist\\output.mp3";
+    private static ArrayList<Menu> menuList = new ArrayList<Menu>();
 
-    public Menu() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(new File(filepath).getAbsoluteFile());
-        clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    public Menu(int menuID, int resID, String menuName, int menuPrice) {
+        this.menuID = menuID;
+        this.resID = resID;
+        this.menuName = menuName;
+        this.menuPrice = menuPrice;
     }
 
     public static void main(String[] args) throws Exception {
         String text1 = "치킨 하나 주세요";
         synthesizeMsg(text1);
         //PlayAudio();
+        loadMenu();
     }
 
     public int getMenuID() {
@@ -62,11 +53,6 @@ public class Menu {
 
     public int getQty() {
         return qty;
-    }
-
-    public String getOutputAudio() {
-
-        return outputAudio;
     }
 
     public String getOrderMsg() {
@@ -94,43 +80,31 @@ public class Menu {
 
     //BUTTON OR CHECKLIST UI ADD QTY
     public Menu setQty(int q) {
+        //int newQ = 0;
         this.qty = q;
         return this;
     }
 
     public static void PlayAudio() {
-        try
-        {
-            Menu audioPlayer = new Menu();
 
-            audioPlayer.play();
-            Scanner sc = new Scanner(System.in);
-
-            while (true)
-            {
-                System.out.println("1. pause");
-                System.out.println("2. resume");
-                System.out.println("3. restart");
-                System.out.println("4. stop");
-                System.out.println("5. Jump to specific time");
-                int c = sc.nextInt();
-                audioPlayer.gotoChoice(c);
-                if (c == 4)
-                    break;
-            }
-            sc.close();
-        }
-
-        catch (Exception ex)
-        {
-            System.out.println("Error with playing sound.");
-            ex.printStackTrace();
-
-        }
 
     }
 
+    public static ArrayList<Menu> loadMenu() {
+        menuList.add(new Menu(11, 1, "Original Fried Chicken", 6000));
+        menuList.add(new Menu(12, 1, "Honey Fried Chicken", 6000));
+        menuList.add(new Menu(13, 1, "Half Half Fried Chicken", 6000));
+        menuList.add(new Menu(21, 2, "Bulgogi Pizza", 9000));
+        menuList.add(new Menu(22, 2, "Italian Cheese Pizza", 9000));
+        menuList.add(new Menu(23, 2, "Peperoni Pizza", 9000));
+
+        System.out.println(menuList);
+        return menuList;
+    }
+
     public Menu setOrderMsg(String msg) {
+        msg = ("Delivery order for "+this.getMenuName()+
+                " "+this.getQty()+" please");
         this.orderMsg = msg;
         return this;
     }
@@ -144,6 +118,12 @@ public class Menu {
         //this is the resID use to get the menu, foreign key in menu db
         //int rid = deliveryAssistantService.Restaurant.getResID();
         //System.out.println(rid);
+    }
+
+    public String toString(){
+        return ("\nMenu Name:"+this.getMenuName()+
+                "\nPrice:"+this.getMenuPrice()+
+                "\nQuantity:"+this.getQty());
     }
 
     //when user clicks on the sound translation button
@@ -179,106 +159,6 @@ public class Menu {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    // Work as the user enters his choice
-
-    private void gotoChoice(int c)
-            throws IOException, LineUnavailableException, UnsupportedAudioFileException
-    {
-        switch (c)
-        {
-            case 1:
-                pause();
-                break;
-            case 2:
-                resumeAudio();
-                break;
-            case 3:
-                restart();
-                break;
-            case 4:
-                stop();
-                break;
-            case 5:
-                System.out.println("Enter time (" + 0 + ", " + clip.getMicrosecondLength() + ")");
-                Scanner sc = new Scanner(System.in);
-                long c1 = sc.nextLong();
-                jump(c1);
-                break;
-
-        }
-
-    }
-
-    // Method to play the audio
-    public void play()
-    {
-        //start the clip
-        clip.start();
-        status = "play";
-    }
-
-    // Method to pause the audio
-    public void pause()
-    {
-        if (status.equals("paused"))
-        {
-            System.out.println("audio is already paused");
-            return;
-        }
-        this.currentFrame =
-                this.clip.getMicrosecondPosition();
-        clip.stop();
-        status = "paused";
-    }
-
-    // Method to resume the audio
-    public void resumeAudio() throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException
-    {
-        if (status.equals("play"))
-        {
-            System.out.println("Audio is already "+"being played");
-            return;
-        }
-        clip.close();
-        clip.setMicrosecondPosition(currentFrame);
-        this.play();
-    }
-
-    // Method to restart the audio
-    public void restart() throws IOException, LineUnavailableException,
-            UnsupportedAudioFileException
-    {
-        clip.stop();
-        clip.close();
-        currentFrame = 0L;
-        clip.setMicrosecondPosition(0);
-        this.play();
-    }
-
-    // Method to stop the audio
-    public void stop() throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException
-    {
-        currentFrame = 0L;
-        clip.stop();
-        clip.close();
-    }
-
-    // Method to jump over a specific part
-    public void jump(long c) throws UnsupportedAudioFileException, IOException,
-            LineUnavailableException
-    {
-        if (c > 0 && c < clip.getMicrosecondLength())
-        {
-            clip.stop();
-            clip.close();
-            currentFrame = c;
-            clip.setMicrosecondPosition(c);
-            this.play();
         }
     }
 }

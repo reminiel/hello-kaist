@@ -2,15 +2,8 @@
 * CS350 Team 2*/
 
 package deliveryAssistantService;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.JsonParser;
-import jdk.nashorn.internal.parser.JSONParser;
-
-import java.io.FileReader;
 import java.sql.*;
 import java.util.*;
-import java.util.List;
 
 public class Restaurant {
     private static int resID;
@@ -19,11 +12,15 @@ public class Restaurant {
     private String resDescription;
     private String resCon;
     private byte resImg;
-    private static Statement stmt;
-    private static ResultSet rs;
-    private static ArrayList<String> resList = new ArrayList<String>();
+    private static ArrayList<Restaurant> resList = new ArrayList<Restaurant>();
 
-    public Restaurant() {    }
+    public Restaurant(int resId, String resName, String resAdd, String resD, String resC) {
+        this.resID = resId;
+        this.resName = resName;
+        this.resAddress = resAdd;
+        this.resDescription = resD;
+        this.resCon = resC;
+    }
 
     public static int getResID() {
         return resID;
@@ -74,46 +71,23 @@ public class Restaurant {
         return new byte[0];
     }
 
-    public static ArrayList<String> loadRes() throws SQLException {
-        /*JSONParser parser = new JSONParser();
+    public static ArrayList<Restaurant> loadRes() {
+        resList.add(new Restaurant(1, "Nene Chicken", "393-3 Gung-dong, Yuseong-gu, Daejeon", "Selling variety of korean fried chicken", "042-543-4479"));
+        resList.add(new Restaurant(2, "Pizza Maru", "108-5 Eoeun-dong, Yuseong-gu, Daejeon", "Selling delicious pizza", "042-822-1085"));
+        resList.add(new Restaurant(3, "Gulsesang", "113-16 Eoeun-dong, Yuseong-gu, Daejeon", "Korean restaurant", "042-863-8282"));
 
-
-        try {
-            //show list of restaurant using json
-            /*Object obj  = parser.parse(new FileReader("C:\\Users\\User\\IdeaProjects\\hello-kaist\\src\\restaurant.json"));
-            JsonObject jsonObject = (JsonObject) obj;
-            String name = (String) jsonObject.get("resName");
-            System.out.println("Restaurant list: "+ name);
-
-
-        } catch (Exception e) {
-            System.err.println("exception");
-            System.err.println(e.getMessage());
-        }*/
+        System.out.println(resList);
         return resList;
     }
 
-    private static void getRes() {
-        Restaurant rest = new Restaurant();
-        List<String> restaurants;
-
-        try {
-            restaurants = rest.loadRes();
-            for (String restaurant : restaurants) {
-                System.out.println("display res");
-                displayRestaurant(restaurant);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public String toString(){
+        return ("\nRestaurant Name:"+this.getResName()+
+                "\nDescription:"+this.getResDescription()+
+                "\nContact:"+this.getResCon());
     }
 
     private static void displayRestaurant(String restaurant) {
-        /*System.out.println("Restaurant Name:" + restaurant.getResName());
-        System.out.println("Address:" + restaurant.getResAddress());
-        System.out.println("Contact number:" + restaurant.getResCon());*/
-        //MENU BUTTON?
-        //pass resID here
+
     }
 
     public static void main (String [] args) throws SQLException {
