@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 
 public class araLoader {
 
-    private Pair<String, String > cookie;
+    private String cookie1, cookie2;
     private boolean loggedIn;
     private String tempDir;
 
@@ -23,7 +23,7 @@ public class araLoader {
     public void logout(){
         loggedIn = false;
         try {
-            Jsoup.connect("https://ara.kaist.ac.kr/account/logout/").cookie("sessionid", cookie.getKey()).cookie("arara_checksum", cookie.getValue()).method(Connection.Method.GET).execute();
+            Jsoup.connect("https://ara.kaist.ac.kr/account/logout/").cookie("sessionid", cookie1).cookie("arara_checksum", cookie2).method(Connection.Method.GET).execute();
         }
         catch(IOException e){
             System.out.println(e);
@@ -44,9 +44,10 @@ public class araLoader {
                         .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
                         .header("Origin", origin).header("Referer", origin + '/').method(Connection.Method.POST).timeout(10000);
                 response = connection.execute();
-                cookie =  new Pair<String, String>(response.cookie("sessionid"), response.cookie("arara_checksum"));
-                if(cookie.getKey() == null) return false;
-                if(cookie.getValue() == null) return false;
+                cookie1 = response.cookie("sessionid");
+                cookie2 = response.cookie("arara_checksum");
+                if(cookie1 == null) return false;
+                if(cookie2 == null) return false;
                 loggedIn = true;
                 return true;
             }
@@ -87,7 +88,7 @@ public class araLoader {
         for(int i=0;i<trial;i++) {
             try {
                 connection = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
-                        .method(Connection.Method.GET).cookie("sessionid", cookie.getKey()).cookie("arara_checksum", cookie.getValue());
+                        .method(Connection.Method.GET).cookie("sessionid", cookie1).cookie("arara_checksum", cookie2);
                 response = connection.execute();
                 doc = response.parse();
                 Container container = new Container(3);
@@ -149,7 +150,7 @@ public class araLoader {
         for(int i=0;i<trial;i++) {
             try {
                 connection = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
-                        .method(Connection.Method.GET).cookie("sessionid", cookie.getKey()).cookie("arara_checksum", cookie.getValue());
+                        .method(Connection.Method.GET).cookie("sessionid", cookie1).cookie("arara_checksum", cookie2);
                 response = connection.execute();
                 doc = response.parse();
                 Container container = new Container(2);
