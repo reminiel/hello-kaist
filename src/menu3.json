@@ -1,0 +1,23 @@
+[
+	{
+		"menuID": "31",
+		"resID": "3",
+		"menuName": "Bibimbap",
+		"menuPrice": "5000",
+		"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/gulsesang/bibimbap.PNG"
+	},
+	{
+		"menuID": "32",
+		"resID": "3",
+		"menuName": "Pork Cutlet",
+		"menuPrice": "6000",
+		"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/gulsesang/pork cutlet.PNG"
+	},
+{
+	"menuID": "33",
+	"resID": "3",
+	"menuName": "Soft Tofu Jigae",
+	"menuPrice": "6000",
+	"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/gulsesang/soft tofu jigae.PNG"
+}]
+

@@ -1,0 +1,23 @@
+[
+	{
+		"menuID": "21",
+		"resID": "2",
+		"menuName": "Bulgogi Pizza",
+		"menuPrice": "9000",
+		"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/pizza maru/bulgogi.PNG"
+	},
+	{
+		"menuID": "22",
+		"resID": "2",
+		"menuName": "Italian Cheese Pizza",
+		"menuPrice": "9000",
+		"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/pizza maru/italian cheese.PNG"
+	},
+{
+	"menuID": "23",
+	"resID": "2",
+	"menuName": "Peperoni Pizza",
+	"menuPrice": "9000",
+	"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/pizza maru/peperoni.PNG"
+}]
+

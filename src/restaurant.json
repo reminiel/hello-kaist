@@ -1,0 +1,25 @@
+[{
+	"resID": "1",
+	"resName": "Nene Chicken",
+	"resAdd": "393-3 Gung-dong, Yuseong-gu, Daejeon",
+	"resDes": "Selling variety of korean fried chicken",
+	"resImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/nene chicken/1.PNG",
+	"resCon": "042-543-4479",
+},
+{
+	"resID": "2",
+	"resName": "Pizza Maru",
+	"resAdd": "108-5 Eoeun-dong, Yuseong-gu, Daejeon",
+	"resDes": "Selling delicious pizza",
+	"resImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/pizza maru/2.PNG",
+	"resCon": "042-822-1085",
+},
+{
+	"resID": "3",
+	"resName": "Gulsesang",
+	"resAdd": "113-16 Eoeun-dong, Yuseong-gu, Daejeon",
+	"resDes": "Korean restaurant",
+	"resImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/gulsesang/3.PNG",
+	"resCon": "042-863-8282",
+}]
+

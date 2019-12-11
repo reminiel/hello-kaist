@@ -1,0 +1,29 @@
+[{
+	"menuID": "11",
+	"resID": "1",
+	"menuName": "Original Fried Chicken",
+	"menuPrice": "6000",
+	"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/nene chicken/original.PNG"
+},
+	{
+		"menuID": "12",
+		"resID": "1",
+		"menuName": "Honey Fried Chicken",
+		"menuPrice": "6000",
+		"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/nene chicken/honey.PNG"
+	},
+	{
+		"menuID": "13",
+		"resID": "1",
+		"menuName": "Half Half Fried Chicken",
+		"menuPrice": "7000",
+		"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/nene chicken/half.PNG"
+	},
+{
+	"menuID": "14",
+	"resID": "1",
+	"menuName": "Nyangnyeom Fried Chicken",
+	"menuPrice": "6000",
+	"menuImg": "C:/Users/User/IdeaProjects/hello-kaist/src/restaurant pictures/nene chicken/nyangyeom.PNG"
+}]
+
