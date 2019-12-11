@@ -125,6 +125,7 @@ public class araLoader {
                 catch(ParseException e){
                     System.out.println(e + "\nParse failed");
                 }
+                container.addArticle(article);
                 return container;
             } catch (IOException e) {
                 System.out.println(e + "\nFetch failed");
