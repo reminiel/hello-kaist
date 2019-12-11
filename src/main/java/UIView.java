@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -200,7 +201,7 @@ public class UIView
 					authorlabel.setLocation(articlewidth * 2 / 4, 0);
 					authorlabel.setFont(basicfont);
 					article.add(authorlabel);
-					JLabel datelabel = new JLabel(new SimpleDateFormat( "MM.dd HH:mm").format(data.getDate()));
+					JLabel datelabel = new JLabel(new SimpleDateFormat( "MM.dd HH:mm").format(datumc.getArticles().get(0).getDate()));
 					datelabel.setSize(articlewidth / 4, articleheight / 5);
 					datelabel.setLocation(articlewidth * 3 / 4, 0);
 					datelabel.setFont(basicfont);
@@ -299,6 +300,7 @@ public class UIView
 				datelabel.setFont(basicfont);
 				detailarticle.add(datelabel);
 				JPanel textnimg = new JPanel();
+				textnimg.setBackground(Color.WHITE);
 				int current_height = 0;
 				for(int i = 0;i < selected_article.contentsSize();i++)
 				{
@@ -327,6 +329,33 @@ public class UIView
 						textnimg.add(imgtmp);
 						current_height += 64;
 					}
+				}
+				JTextArea tmp2 = new JTextArea("---------comment---------");
+				tmp2.setLocation(0,current_height);
+				tmp2.setSize(detailwidth-100,200);
+				tmp2.setLineWrap(true);
+				tmp2.setSize(detailwidth-100,tmp2.getLineCount()*20);
+				textnimg.add(tmp2);
+				current_height += 200;
+				for(int i = 0;i < selected_article.commentsSize();i++)
+				{
+					JTextArea tmp = new JTextArea("Comment from " + selected_article.getComments(i).getAuthor());
+					tmp.setLocation(0,current_height);
+					tmp.setSize(detailwidth-100,200);
+					tmp.setLineWrap(true);
+					tmp.setSize(detailwidth-100,tmp.getLineCount()*20);
+					textnimg.add(tmp);
+					String tmpstr = "";
+					for(int j = 0;j < selected_article.getComments(i).contentsSize();j++)
+					{
+						tmpstr += selected_article.getComments(i).getContents(j);
+					}
+					JTextArea tmp3 = new JTextArea(tmpstr);
+					tmp3.setLocation(0,current_height);
+					tmp3.setSize(detailwidth-100,200);
+					tmp3.setLineWrap(true);
+					tmp3.setSize(detailwidth-100,tmp3.getLineCount()*20);
+					textnimg.add(tmp3);
 				}
 				textnimg.setPreferredSize(new Dimension(detailwidth-100,current_height));
 				JScrollPane sp = new JScrollPane(textnimg);
