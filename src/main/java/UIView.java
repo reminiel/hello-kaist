@@ -718,17 +718,17 @@ public class UIView
 		clear();
 		// articles
 		int articlewidth = panelwidth - 100;
-		int articleheight = panelheight / 4;
+		int articleheight = panelheight / 4-20;
 
 		for(int i=0;i<3;i++)
 		{
 			if (i==0){
-				JPanel article = articlebox(articlewidth, articleheight, 50, 50 + panelheight / 4 * i + 40 * i);
+				JPanel article = articlebox(articlewidth, articleheight, 50, 20+panelheight / 4 * i);
 				Image img=null;
 				int imgsize = articleheight - 30;
 				try
 				{
-					img = ImageIO.read(new File("images/library.png"));
+					img = ImageIO.read(new File("src/images/library.png"));
 				}
 				catch (IOException e1)
 				{
@@ -742,16 +742,16 @@ public class UIView
 
 				JLabel namelabel = new JLabel("Application name:KAIST LIBRARY");
 				namelabel.setFont(basicfont);
-				namelabel.setSize(articlewidth - imgsize - 30, 50);
-				namelabel.setLocation(imgsize + 30, 15);
+				namelabel.setSize(articlewidth - imgsize - 30, 40);
+				namelabel.setLocation(imgsize + 30, 0);
 				article.add(namelabel);
 
 				JTextArea textlabel = new JTextArea(
 						"INTRODUCTION:Inquiries, reservations for library seats, and how to borrow books   https://play.google.com/store/apps/details?id=kr.ac.libit.kaist&hl=en ");
 				textlabel.setLineWrap(true);
-				textlabel.setFont(basicfont);
-				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 90);
-				textlabel.setLocation(imgsize + 30, 80);
+				textlabel.setFont(new Font("Arial",0,18));
+				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 48);
+				textlabel.setLocation(imgsize + 30, 45);
 				textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
 				textlabel.setEnabled(false);
 				textlabel.setDisabledTextColor(Color.BLACK);
@@ -760,12 +760,12 @@ public class UIView
 				window.add(article);
 			}
 			if (i==1){
-				JPanel article = articlebox(articlewidth, articleheight, 50, 50 + panelheight / 4 * i + 40 * i);
+				JPanel article = articlebox(articlewidth, articleheight, 50, 20+panelheight / 4 * i);
 				Image img=null;
 				int imgsize = articleheight - 30;
 				try
 				{
-					img = ImageIO.read(new File("images/portal.png"));
+					img = ImageIO.read(new File("src/images/portal.png"));
 				}
 				catch (IOException e1)
 				{
@@ -779,16 +779,16 @@ public class UIView
 
 				JLabel namelabel = new JLabel("Application name：KAIST PORTAL");
 				namelabel.setFont(basicfont);
-				namelabel.setSize(articlewidth - imgsize - 30, 50);
-				namelabel.setLocation(imgsize + 30, 15);
+				namelabel.setSize(articlewidth - imgsize - 30, 40);
+				namelabel.setLocation(imgsize + 30, 0);
 				article.add(namelabel);
 
 				JTextArea textlabel = new JTextArea(
 						"INTRODUCTION：Integrated application receive notifications select courses also access to mail and KLMS   LINK：https://play.google.com/store/apps/details?id=kr.ac.kaist.portal&hl=en");
 				textlabel.setLineWrap(true);
-				textlabel.setFont(basicfont);
-				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 90);
-				textlabel.setLocation(imgsize + 30, 80);
+				textlabel.setFont(new Font("Arial",0,18));
+				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 48);
+				textlabel.setLocation(imgsize + 30, 45);
 				textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
 				textlabel.setEnabled(false);
 				textlabel.setDisabledTextColor(Color.BLACK);
@@ -797,12 +797,12 @@ public class UIView
 				window.add(article);
 			}
 			if (i==2){
-				JPanel article = articlebox(articlewidth, articleheight, 50, 50 + panelheight / 4 * i + 40 * i);
+				JPanel article = articlebox(articlewidth, articleheight, 50, 20+panelheight / 4 * i);
 				Image img=null;
 				int imgsize = articleheight - 30;
 				try
 				{
-					img = ImageIO.read(new File("images/kairen.png"));
+					img = ImageIO.read(new File("src/images/kairen.png"));
 				}
 				catch (IOException e1)
 				{
@@ -816,16 +816,16 @@ public class UIView
 
 				JLabel namelabel = new JLabel("Application name：KAIREN");
 				namelabel.setFont(basicfont);
-				namelabel.setSize(articlewidth - imgsize - 30, 50);
-				namelabel.setLocation(imgsize + 30, 15);
+				namelabel.setSize(articlewidth - imgsize - 30, 40);
+				namelabel.setLocation(imgsize + 30, 0);
 				article.add(namelabel);
 
 				JTextArea textlabel = new JTextArea(
 						"INTRODUCTION：This app works for the communication and safety of KAIST people and KAIST security team by reporting security issue. LINK：https://play.google.com/store/apps/details?id=kr.ac.kaist.kairen.kairen&hl=en");
 				textlabel.setLineWrap(true);
-				textlabel.setFont(basicfont);
-				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 90);
-				textlabel.setLocation(imgsize + 30, 80);
+				textlabel.setFont(new Font("Arial",0,18));
+				textlabel.setSize(articlewidth - imgsize - 40, articleheight - 48);
+				textlabel.setLocation(imgsize + 30, 45);
 				textlabel.setAlignmentY(Component.TOP_ALIGNMENT);
 				textlabel.setEnabled(false);
 				textlabel.setDisabledTextColor(Color.BLACK);
