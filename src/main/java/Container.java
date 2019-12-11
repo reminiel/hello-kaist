@@ -1,5 +1,3 @@
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -22,17 +20,9 @@ public class Container {
         tags.put(key, value);
         return this;
     }
-    public Container setTags(){
-        throw new NotImplementedException();
-//        return this;
-    }
     public Container addArticle(Article article){
         articles.add(article);
         return this;
-    }
-    public Container setArticles(){
-        throw new NotImplementedException();
-//        return this;
     }
 
     public HashMap<String, String> getTags() {
